@@ -7,7 +7,7 @@ const updateBodyToSQL = (tableName, reqBody, eid) => {
         if(i === length-1){
             sql += `${keysArray[i]} = "${valuesArray[i]}" `
         } else {
-            sql += `${keyArray[i]} = "${valuesArray[i]}", `
+            sql += `${keysArray[i]} = "${valuesArray[i]}", `
         }
     }
     sql += `WHERE t.id = ${eid}`;
