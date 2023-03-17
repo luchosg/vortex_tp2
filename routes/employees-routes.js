@@ -1,18 +1,27 @@
 const express = require('express');
-const router = express.Router();
+const employeesRouter = express.Router();
 const {
     createEmployeeValidationRules, 
     updateEmployeeValidationRules,
     e_paramValidationRules
 } = require('../validators/employee-validator');
 
-const employeesController = require('../controllers/employees-controller');
+const {
+    getAllEmployees,
+    getEmployeeById,
+    createEmployee,
+    updateEmployee,
+    deleteEmployee
+} = require('../controllers/employees-controller');
 
-router.get('/', employeesController.getAllEmployees);
-router.get('/:eid', e_paramValidationRules, employeesController.getEmployeeById);
+employeesRouter.route('/')
+    .get(getAllEmployees)
+    .post(createEmployeeValidationRules, createEmployee)
 
-router.post('/', createEmployeeValidationRules, employeesController.createEmployee);
-router.put('/:eid', e_paramValidationRules, updateEmployeeValidationRules, employeesController.updateEmployee);
-router.delete('/:eid', e_paramValidationRules, employeesController.deleteEmployee);
 
-module.exports = router;
+employeesRouter.route('/:eid')
+    .get(e_paramValidationRules, getEmployeeById)
+    .put(e_paramValidationRules, updateEmployeeValidationRules, updateEmployee)
+    .delete(e_paramValidationRules, deleteEmployee)
+
+module.exports = employeesRouter;

@@ -1,9 +1,9 @@
 const connection = require('../config/db-config');
-const functions = require('../utils/functions');
+const {filterAndPagination, createBodyToSQL, updateBodyToSQL} = require('../utils/functions');
 
 const getAllAssets = async queryParams => {
     const {limit, page, ...filterParams} = queryParams;
-    const sql = functions.filterAndPagination(`SELECT * FROM assets`, filterParams, limit, page);
+    const sql = filterAndPagination(`SELECT * FROM assets`, filterParams, limit, page);
     const assets = await connection.query(sql).spread(rows => rows);
     return assets;
 }
@@ -34,13 +34,13 @@ const deleteAllAssetsByEmployeeId = async eid => {
 }
 
 const createAsset = async reqBody => {
-    const sql = functions.createBodyToSQL('assets', reqBody)
+    const sql = createBodyToSQL('assets', reqBody)
     const result = await connection.query(sql).spread(result => result);
     return result.insertId;
 }
 
 const updateAsset = async (reqBody, aid) => {
-    const sql = functions.updateBodyToSQL("assets", reqBody, aid);
+    const sql = updateBodyToSQL("assets", reqBody, aid);
     const result = await connection.query(sql).spread(result => result);
     return result.affectedRows;
 }
