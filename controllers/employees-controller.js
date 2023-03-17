@@ -9,7 +9,7 @@ const getAllEmployees = async (req, res, next) => {
         if(employees.length === 0){
             next(new HttpError(`Could not find employees`), 404);
         } else {
-            res.send({data : employees});
+            res.status(200).json({data : employees});
         }
     } catch({message}){
         next(new HttpError(message, 500))
@@ -23,7 +23,7 @@ const getEmployeeById = async (req, res, next) => {
         if(employee.length === 0){
             next(new HttpError(`Employee with id ${eid} not found`, 404));
         } else {
-            res.send({data: employee});
+            res.status(200).json({data: employee});
         }
     } catch ({message}) {
         next(new HttpError(message, 500));
@@ -34,7 +34,7 @@ const createEmployee = async (req, res, next) => {
     try{
         const reqBody = {...req.body};
         const insertId = await employeeModel.createEmployee(reqBody);
-        res.json({message: `Employee created with id ${insertId}`});
+        res.status(201).json({message: `Employee created with id ${insertId}`});
     } catch({message}){
         next(new HttpError(message, 500));
     }
@@ -49,7 +49,7 @@ const deleteEmployee = async (req, res, next) => {
         if(affectedRows === 0){
             next(new HttpError(`Employee with id ${eid} not found`, 404));
         } else {
-            res.json({message: `Employee with id ${eid} and ${deletedAssets} assets deleted succesfully`})
+            res.status(200).json({message: `Employee with id ${eid} and ${deletedAssets} assets deleted succesfully`})
         }        
     } catch({message}) {
         next(new HttpError(message, 500));
@@ -64,7 +64,7 @@ const updateEmployee = async (req, res, next) => {
         if(affectedRows === 0){
             next(new HttpError(`Employee with id ${eid} not found`, 404));
         } else {
-            res.json({message: `Employee with id ${eid} updated`})
+            res.status(200).json({message: `Employee with id ${eid} updated`})
         }
     } catch({message}) {
         next(new HttpError(message, 500));

@@ -11,21 +11,24 @@ const createAssetValidationRules = [
     oneOf([
         body('code')
             .exists()
-            .isLength({min:1, max:30}).withMessage("El codigo debe tener un largo min de 1 y max de 30"),
+            .isLength({min:1, max:30}).withMessage("El codigo debe tener un largo min de 1 y max de 30")
+            .optional({nullable: true}),
         body('code')
             .not().exists()
         ]),
     oneOf([
         body('brand')
             .exists()
-            .isLength({min:1, max:30}).withMessage("La marca debe tener un largo min de 1 y max de 30"),
+            .isLength({min:1, max:30}).withMessage("La marca debe tener un largo min de 1 y max de 30")
+            .optional({nullable: true}),
         body('brand')
             .not().exists()
     ]),
     oneOf([
         body('description')
             .exists()
-            .isLength({min:1, max:255}).withMessage("La descripcion debe tener un largo min de 1 y max de 255"),
+            .isLength({min:1, max:255}).withMessage("La descripcion debe tener un largo min de 1 y max de 255")
+            .optional({nullable: true}),
         body('description')
             .not().exists()
     ]),
@@ -57,8 +60,8 @@ const updateAssetValidationRules = [
     oneOf([
         body('code')
             .exists()
-            .isLength({min:1, max:30}).withMessage("El codigo debe tener un largo min de 1 y max de 30"),
-        body('code').optional({nullable: true, checkFalsy: true}),
+            .isLength({min:1, max:30}).withMessage("El codigo debe tener un largo min de 1 y max de 30")
+            .optional({nullable: true}),
         body('code').not().exists()
     ]),
     oneOf([
@@ -71,7 +74,8 @@ const updateAssetValidationRules = [
     oneOf([
         body('description')
             .exists()
-            .isLength({min:1, max:255}).withMessage("La descripcion debe tener un largo min de 1 y max de 255"),
+            .isLength({min:1, max:255}).withMessage("La descripcion debe tener un largo min de 1 y max de 255")
+            .optional({nullable: true}),
         body('description').not().exists()
     ]),
     oneOf([
@@ -97,7 +101,6 @@ const a_paramValidationRules = [
         return validate(req, res, next);
     }
 ]
-
 
 module.exports = {
     createAssetValidationRules,

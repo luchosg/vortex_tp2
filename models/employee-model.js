@@ -8,12 +8,6 @@ const getAllEmployees = async queryParams => {
     return employees;
 }
 
-// const getAllEmployees = async queryParams => {
-//     const sql = functions.filterGet(`SELECT * FROM employees`, queryParams);
-//     const employees = await connection.query(sql).spread(rows => rows);
-//     return employees;
-// }
-
 const getEmployeeById = async eid => {
     const sql = `SELECT * FROM employees e WHERE e.id = ${eid}`;
     const employee = await connection.query(sql).spread(row => row);

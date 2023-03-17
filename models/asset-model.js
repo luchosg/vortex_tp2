@@ -2,7 +2,8 @@ const connection = require('../config/db-config');
 const functions = require('../utils/functions');
 
 const getAllAssets = async queryParams => {
-    const sql = functions.filterAndPagination(`SELECT * FROM assets`, queryParams);
+    const {limit, page, ...filterParams} = queryParams;
+    const sql = functions.filterAndPagination(`SELECT * FROM assets`, filterParams, limit, page);
     const assets = await connection.query(sql).spread(rows => rows);
     return assets;
 }
