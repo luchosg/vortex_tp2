@@ -23,7 +23,7 @@ const getAssetById = async (req, res, next) => {
         if(asset.length === 0){
             next(new HttpError(`Asset with id ${aid} not found`, 404));
         } else {
-            res.status(200).json({data: asset});
+            res.status(200).json({data: asset[0]});
         }
     } catch({message}){
         next(new HttpError(message, 500))

@@ -23,7 +23,7 @@ const getEmployeeById = async (req, res, next) => {
         if(employee.length === 0){
             next(new HttpError(`Employee with id ${eid} not found`, 404));
         } else {
-            res.status(200).json({data: employee});
+            res.status(200).json({data: employee[0]});
         }
     } catch ({message}) {
         next(new HttpError(message, 500));
