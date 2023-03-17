@@ -5,7 +5,6 @@ const {
     updateEmployeeValidationRules,
     e_paramValidationRules
 } = require('../validators/employee-validator');
-
 const employeesController = require('../controllers/employees-controller');
 
 router.get('/', employeesController.getAllEmployees);
